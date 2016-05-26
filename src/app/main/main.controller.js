@@ -13,8 +13,15 @@
     vm.classAnimation = '';
     vm.creationDate = 1464185578640;
     vm.showToastr = showToastr;
+    vm.twitterConnect = twitterConnect;
+
+
 
     activate();
+
+    function twitterConnect() {
+      hello( 'twitter' ).api( 'me' );
+    }
 
     function activate() {
       getWebDevTec();
