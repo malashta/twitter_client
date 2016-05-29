@@ -21,11 +21,23 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController(moment) {
+    function NavbarController(moment, twitterService, $scope, $mediator) {
       var vm = this;
-
-      // "vm.creationDate" is available by directive option "bindToController: true"
       vm.relativeDate = moment(vm.creationDate).fromNow();
+      vm.status = twitterService.isReady() ? true : false;
+      vm.profile = Object.create(null);
+
+      $mediator.$on('isConnect',function(){vm.status = true;});
+
+      $scope.$watch('status',function(){
+        if(vm.status) {
+          twitterService.getUserProfile().then(function (response) {
+            vm.profile = response;
+            console.log(response);
+          });
+        }
+      });
+
     }
   }
 

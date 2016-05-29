@@ -8,6 +8,16 @@
     <md-button href="#" class="md-raised">Contact</md-button>
   </section>
 
-  <md-button class="acme-navbar-text">Application was created {{ vm.relativeDate }}.</md-button>
+  <section ng-if="vm.status" flex layout="row" layout-align="right right">
+    <md-list-item class="md-2-line md-no-proxy" role="listitem">
+      <img ng-src="{{vm.profile.profile_image_url}}" class="md-avatar" alt="{{ vm.profile.name }}" src="assets/images/profile_pic.png">
+      <div class="md-list-item-text">
+        <h3 class="ng-binding">{{ vm.profile.name }}</h3>
+        <p>{{ vm.profile.description }}</p>
+      </div>
+    </md-list-item>
+  </section>
+
+  <md-button ng-hide="vm.status" class="acme-navbar-text">Application was created {{ vm.relativeDate }}.</md-button>
 
 </md-toolbar>

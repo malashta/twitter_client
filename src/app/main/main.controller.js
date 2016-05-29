@@ -6,21 +6,59 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($timeout, webDevTec, toastr, twitterService, $scope, $mediator, $localStorage, $window) {
     var vm = this;
 
+    twitterService.initialize();
+
+    console.log($localStorage);
+
+    $localStorage.second = {status:'close'};
+
+
+    vm.tweets = []; //array of tweets
+    vm.status = twitterService.isReady() ? true : false;
     vm.awesomeThings = [];
     vm.classAnimation = '';
     vm.creationDate = 1464185578640;
     vm.showToastr = showToastr;
     vm.twitterConnect = twitterConnect;
-
-
+    vm.refreshTimeline = refreshTimeline;
+    vm.showContentDetail = showContentDetail;
 
     activate();
 
+    $scope.$watch('status',function(){
+      if(vm.status) {
+        twitterService.getUserProfile().then(function (response) {
+          refreshTimeline();
+        });
+      }
+    });
+
+    function showContentDetail (tweet) {
+      if($localStorage.second.status == 'close') {
+        $window.open('http://localhost:3000/#/second');
+        $localStorage.detail = {tweet:tweet};
+      } else {
+        $localStorage.detail = {tweet:tweet};
+      }
+    }
+
+    function refreshTimeline () {
+      twitterService.getLatestTweets().then(function(data) {
+        vm.tweets = data;
+        console.info(data);
+      });
+    }
+
     function twitterConnect() {
-      hello( 'twitter' ).api( 'me' );
+      twitterService.connectTwitter().then(function() {
+        if (twitterService.isReady()) {
+          vm.status = true;
+          $mediator.$emit('isConnect',{});
+        }
+      });
     }
 
     function activate() {

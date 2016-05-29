@@ -6,8 +6,44 @@
   <md-content>
 
 
-    <section class="jumbotron">
+    <section ng-if="!main.status" class="jumbotron">
       <md-button class="md-raised animated infinite center" ng-class="main.classAnimation" ng-click="main.twitterConnect()">Войдите в свой Twitter</md-button>
+    </section>
+
+    <section class="techs">
+
+      <md-card ng-repeat="item in main.tweets">
+        <md-card-header>
+          <md-card-avatar>
+            <img class="md-user-avatar" ng-src="{{item.user.profile_image_url}}" src="assets/images/profile_pic.png">
+          </md-card-avatar>
+          <md-card-header-text>
+            <span class="md-title">{{ item.user.name }}</span>
+            <span class="md-subhead">{{ item.user.description }}</span>
+          </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{ item.entities.media[0].media_url }}" class="md-card-image">
+        <md-card-title>
+          <md-card-title-text>
+            <!--<span class="md-headline">{{ item.text }}</span>-->
+            <!--<span class="md-subhead">Reversed</span>-->
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center" class="layout-align-start-center layout-row">
+          <button class="md-button md-ink-ripple" type="button" ng-click="main.showContentDetail(item.id)"  aria-label="Action 1"><span class="ng-scope">Action 1</span></button>
+          <button class="md-button md-ink-ripple" type="button"  aria-label="Action 2"><span class="ng-scope">Action 2</span></button>
+          <md-card-icon-actions>
+            <button class="md-icon-button md-button md-ink-ripple" type="button"  aria-label="toggle">
+              <md-icon md-svg-icon="md-toggle-arrow" class="ng-scope" aria-hidden="true"><svg version="1.1" x="0px" y="0px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M24 16l-12 12 2.83 2.83 9.17-9.17 9.17 9.17 2.83-2.83z"></path><path d="M0 0h48v48h-48z" fill="none"></path></svg></md-icon>
+            </button>
+          </md-card-icon-actions>
+        </md-card-actions>
+        <md-card-content>
+          <p>
+            {{ item.text }}
+          </p>
+        </md-card-content>
+      </md-card>
     </section>
 
 
