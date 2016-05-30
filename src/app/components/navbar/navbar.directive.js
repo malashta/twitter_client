@@ -29,7 +29,7 @@
       vm.getUserProfile = getUserProfile;
 
       $mediator.$on('isConnect',function(){
-        vm.status = true;
+        vm.status = twitterService.isReady() ? true : false;
         getUserProfile();
       });
 
