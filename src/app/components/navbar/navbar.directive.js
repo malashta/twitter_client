@@ -26,17 +26,24 @@
       vm.relativeDate = moment(vm.creationDate).fromNow();
       vm.status = twitterService.isReady() ? true : false;
       vm.profile = Object.create(null);
+      vm.getUserProfile = getUserProfile;
 
-      $mediator.$on('isConnect',function(){vm.status = true;});
+      $mediator.$on('isConnect',function(){
+        vm.status = true;
+        getUserProfile();
+      });
 
       $scope.$watch('status',function(){
+        getUserProfile();
+      });
+
+      function getUserProfile(){
         if(vm.status) {
           twitterService.getUserProfile().then(function (response) {
             vm.profile = response;
-            console.log(response);
           });
         }
-      });
+      }
 
     }
   }

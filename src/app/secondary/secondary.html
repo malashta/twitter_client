@@ -1,14 +1,38 @@
+<md-toolbar class="md-tall md-warn _md">
+  <div class="md-toolbar-tools">
+    <button class="md-button md-ink-ripple" type="button" aria-label="Go Back"><span class="ng-scope">
+          Go Back
+        </span></button>
+    <span><img ng-src="{{second.tweet.user.profile_image_url}}" class="md-avatar" alt="{{ second.tweet.user.name }}" src="assets/images/profile_pic.png"></span>
+    <h2>
+      <span>{{ second.tweet.user.name }}</span>
+    </h2>
+    <span flex="" class="flex"></span>
+    <button class="md-raised md-button md-ink-ripple" type="button" aria-label="Learn More"><span class="ng-scope">
+          Learn More
+        </span></button>
+    <button class="md-fab md-mini md-button md-ink-ripple" type="button" aria-label="Favorite">
+      <md-icon><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <path d="M0 0h24v24h-24z" fill="none"></path>
+        <path d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path>
+      </svg></md-icon>
+    </button>
+  </div>
+</md-toolbar>
 <div>
   <div layout-gt-sm="row" layout="column" layout-margin layout-align="start center" layout-align-gt-sm="start start">
 
+
+
     <main flex-md="60" flex-order-gt-sm="2">
       <h1 class="md-title">
-        {{ second.tweet.user.name }}
+
       </h1>
 
       <p>
         {{ second.tweet.text }}
       </p>
+
     </main>
 
     <aside flex-md="40" flex-order-gt-sm="1">

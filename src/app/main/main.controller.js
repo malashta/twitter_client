@@ -64,6 +64,7 @@
       twitterService.connectTwitter().then(function() {
         if (twitterService.isReady()) {
           vm.status = true;
+          refreshTimeline();
           $mediator.$emit('isConnect',{});
         }
       });
