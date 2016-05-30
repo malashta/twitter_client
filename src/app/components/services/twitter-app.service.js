@@ -8,7 +8,7 @@
     .factory('twitterService', function ($q, $resource) {
 
       var authorizationResult = false;
-      var tweetDetails = $resource('/1.1/statuses/show/:id');
+     // var tweetDetails = $resource('/1.1/statuses/show/:id');
 
       return {
 
@@ -56,11 +56,21 @@
         },
 
         getTweetDetails: function (id) {
+          var deferred = $q.defer();
+          authorizationResult.get('/1.1/statuses/show.json',{data:{id:id}})
+            .done(function (data) {
+              deferred.resolve(data);
+            });
+          return deferred.promise;
+        },
+
+        addToFavorite: function (id) {
           console.log(id);
           var deferred = $q.defer();
-          var promise = authorizationResult.get('/1.1/statuses/show/'+id).done(function (data) {
-            deferred.resolve(data);
-          });
+          authorizationResult.post('/1.1/favorites/create.json',{data:{id:id}})
+            .done(function(data) {
+              deferred.resolve(data);
+            });
           return deferred.promise;
         }
       }

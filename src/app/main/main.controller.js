@@ -25,6 +25,7 @@
     vm.twitterConnect = twitterConnect;
     vm.refreshTimeline = refreshTimeline;
     vm.showContentDetail = showContentDetail;
+    vm.setLikePost = setLikePost;
 
     activate();
 
@@ -35,6 +36,13 @@
         });
       }
     });
+
+    function setLikePost (post) {
+      console.log(post);
+      twitterService.addToFavorite(post.id).then(function(data){
+        console.log(data);
+      });
+    }
 
     function showContentDetail (tweet) {
       if($localStorage.second.status == 'close') {

@@ -1,1 +1,18 @@
-<p>{{tweet}}
+<div>
+  <div layout-gt-sm="row" layout="column" layout-margin layout-align="start center" layout-align-gt-sm="start start">
+
+    <main flex-md="60" flex-order-gt-sm="2">
+      <h1 class="md-title">
+        {{ second.tweet.user.name }}
+      </h1>
+
+      <p>
+        {{ second.tweet.text }}
+      </p>
+    </main>
+
+    <aside flex-md="40" flex-order-gt-sm="1">
+      <img ng-src="{{ second.tweet.entities.media[0].media_url }}"/>
+    </aside>
+  </div>
+</div>
