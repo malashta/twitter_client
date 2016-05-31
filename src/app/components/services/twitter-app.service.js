@@ -5,10 +5,36 @@
 (function() {
   angular
     .module('twitterApp.services', [])
-    .factory('twitterService', function ($q, $resource) {
+    .factory('twitterService', function ($q) {
 
       var authorizationResult = false;
-     // var tweetDetails = $resource('/1.1/statuses/show/:id');
+      var HOME_TIMELINE_URL = '/1.1/statuses/home_timeline.json';
+      var VERIFY_CREDENTIALS_URL = '/1.1/account/verify_credentials.json';
+      var SEARCH_TWEETS_URL = '/1.1/search/tweets.json';
+      var STATUS_UPDATE_URL = '/1.1/statuses/update.json';
+      var STATUS_MENTIONS_URL = '/1.1/statuses/mentions_timeline.json';
+      var USER_TIMELINE_URL = '/1.1/statuses/user_timeline.json';
+      var USER_DETAILS_URL = '/1.1/users/show.json';
+      var STATUSES_SHOW_URL = '/1.1/statuses/show.json';
+      var FAVORITES_CREATE_URL = '/1.1/favorites/create.json';
+
+      function getRequest(url, data) {
+        if(typeof(data)==='undefined')data={};
+        var deferred = $q.defer();
+        authorizationResult.get(url,{data:data}).done(function (data) {
+          deferred.resolve(data)
+        });
+        return deferred.promise;
+      }
+
+      function postRequest(url, data) {
+        var deferred = $q.defer();
+        if (typeof(data)==='undefined') data = {};
+        authorizationResult.post(url,{data:data}).done(function (data) {
+          deferred.resolve(data)
+        });
+        return deferred.promise;
+      }
 
       return {
 
@@ -17,9 +43,7 @@
           authorizationResult = OAuth.create('twitter');
         },
 
-        isReady: function () {
-          return (authorizationResult);
-        },
+        isReady: function () {return (authorizationResult);},
 
         connectTwitter: function () {
           var deferred = $q.defer();
@@ -39,41 +63,13 @@
           authorizationResult = false;
         },
 
-        getLatestTweets: function () {
-          var deferred = $q.defer();
-          var promise = authorizationResult.get('/1.1/statuses/home_timeline.json').done(function (data) {
-            deferred.resolve(data)
-          });
-          return deferred.promise;
-        },
+        getLatestTweets: function () {return getRequest(HOME_TIMELINE_URL);},
 
-        getUserProfile: function () {
-          var deferred = $q.defer();
-          var promise = authorizationResult.get('/1.1/account/verify_credentials.json').done(function (data) {
-            deferred.resolve(data)
-          });
-          return deferred.promise;
-        },
+        getUserProfile: function () {return getRequest(VERIFY_CREDENTIALS_URL);},
 
-        getTweetDetails: function (id) {
-          var deferred = $q.defer();
-          authorizationResult.get('/1.1/statuses/show.json',{data:{id:id}})
-            .done(function (data) {
-              deferred.resolve(data);
-            });
-          return deferred.promise;
-        },
+        getTweetDetails: function (id) {return getRequest(STATUSES_SHOW_URL,{id:id});},
 
-        addToFavorite: function (id) {
-          console.log(id);
-          var deferred = $q.defer();
-          authorizationResult.post('/1.1/favorites/create.json',{data:{id:id}})
-            .done(function(data) {
-              deferred.resolve(data);
-            });
-          return deferred.promise;
-        }
+        addToFavorite: function (id) {return postRequest(FAVORITES_CREATE_URL,{id:id})}
       }
-
     });
 })();
