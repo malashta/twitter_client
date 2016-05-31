@@ -6,22 +6,14 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr, twitterService, $scope, $mediator, $localStorage, $window) {
+  function MainController($timeout, webDevTec, toastr, twitterService, $scope, $mediator, $localStorage, $window, $log, baseActions) {
     var vm = this;
-
-    twitterService.initialize();
-
-    console.log($localStorage);
-
-    $localStorage.second = {status:'close'};
-
-
     vm.tweets = []; //array of tweets
-    vm.status = twitterService.isReady() ? true : false;
-    vm.awesomeThings = [];
+    $scope.tweet = {};
+    vm.status = false;
     vm.classAnimation = '';
     vm.creationDate = 1464185578640;
-    vm.showToastr = showToastr;
+    vm.dataBase = Object.create(null);
     vm.twitterConnect = twitterConnect;
     vm.refreshTimeline = refreshTimeline;
     vm.showContentDetail = showContentDetail;
@@ -31,32 +23,31 @@
 
     $scope.$watch('status',function(){
       if(vm.status) {
-        twitterService.getUserProfile().then(function (response) {
-          refreshTimeline();
-        });
+        refreshTimeline();
       }
     });
 
     function setLikePost (post) {
-      console.log(post);
-      twitterService.addToFavorite(post.id).then(function(data){
-        console.log(data);
+      twitterService.addToFavorite(post.id_str).then(function(data){
+        $log.log(data);
       });
     }
 
     function showContentDetail (tweet) {
       if($localStorage.second.status == 'close') {
-        $window.open('http://localhost:3000/#/second');
-        $localStorage.detail = {tweet:tweet};
+        $window.open('/#/second');
+       // $localStorage.detail = {tweet:tweet};
+        $scope.tweet = tweet;
       } else {
-        $localStorage.detail = {tweet:tweet};
+       // $localStorage.detail = {tweet:tweet};
+        $scope.tweet = tweet;
       }
     }
 
     function refreshTimeline () {
       twitterService.getLatestTweets().then(function(data) {
         vm.tweets = data;
-        console.info(data);
+        $log.info(data);
       });
     }
 
@@ -71,23 +62,14 @@
     }
 
     function activate() {
-      getWebDevTec();
+      twitterService.initialize();
+      vm.dataBase = baseActions.initBase();
+      vm.dataBase.$bindTo($scope, "tweet");
+      $localStorage.second = {status:'close'};
+      vm.status = twitterService.isReady() ? true : false;
       $timeout(function() {
         vm.classAnimation = 'rubberBand';
       }, 4000);
-    }
-
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
-
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
     }
   }
 })();

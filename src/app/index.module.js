@@ -17,7 +17,8 @@
       'twitterApp.services',
       'commonServices',
       'ngStorage',
-      'firebase'
+      'firebase',
+      'dataStorage'
     ]);
 
 })();

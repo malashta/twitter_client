@@ -4,11 +4,16 @@
 (function(){
   angular
     .module('dataStorage',[])
-    .value('firebasePath',function(){ return 'https://resplendent-fire-8365.firebaseio.com'; })
-    .factory('baseActions',function(firebasePath){
+    .factory('baseActions',function($firebaseObject, $window){
+
+      var auth;
 
       return{
-        initBase:function(){},
+        initBase:function(){
+          var ref = new $window.Firebase('https://resplendent-fire-8365.firebaseio.com');
+          auth = $firebaseObject(ref);
+          return auth;
+        },
         setActiveFrame:function(){},
         setCloseFrame:function(){},
         setDataToFrame:function(){},
