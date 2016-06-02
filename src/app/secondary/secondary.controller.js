@@ -11,6 +11,7 @@
   function SecondaryController($scope, twitterService, $localStorage, $log, baseActions){
     var vm = this;
     $scope.tweet = {};
+    vm.tweets = [];
     var imagePath = '';
 
     twitterService.initialize();
@@ -18,8 +19,14 @@
     vm.dataBase.$bindTo($scope, "tweet");
 
     $scope.$watch('tweet',function(){
-      $log.log($scope.tweet);
-      vm.imagePath = $scope.tweet.user.profile_image_url;
+      if($scope.tweet.hasOwnProperty('id')) {
+        $log.log($scope.tweet);
+        vm.tweets.push($scope.tweet);
+        vm.imagePath = $scope.tweet.user.profile_image_url;
+        twitterService.getUserTimeline($scope.tweet.user.screen_name).then(function(data){
+          vm.tweets = data;
+        });
+      }
     });
 
     $localStorage.second = {status:'open'};

@@ -36,10 +36,8 @@
     function showContentDetail (tweet) {
       if($localStorage.second.status == 'close') {
         $window.open('/#/second');
-       // $localStorage.detail = {tweet:tweet};
         $scope.tweet = tweet;
       } else {
-       // $localStorage.detail = {tweet:tweet};
         $scope.tweet = tweet;
       }
     }
