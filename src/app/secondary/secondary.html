@@ -133,14 +133,56 @@
 
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="item in second.tweets">
-        <img ng-src="{{tweet.user.profile_image_url}}" class="md-avatar">
-        <div class="md-list-item-text">
-          <b>{{item.user.name}}</b>
-          <h2>{{item.text}}</h2>
-          <br>
-          <img ng-src="{{ item.entities.media[0].media_url }}" class="md-card-image">
-        </div>
-        <br>
+        <div flex-xs flex-gt-xs="100" layout="column">
+          <md-card>
+            <md-card-header>
+              <md-card-avatar>
+                <img ng-src="{{item.user.profile_image_url}}"  class="md-user-avatar" src="assets/images/profile_pic.png"/>
+              </md-card-avatar>
+              <md-card-header-text>
+                <span ng-if="item.in_reply_to_screen_name" class="md-subhead">в ответ
+                  <span ng-repeat="user_m in item.entities.user_mentions">
+                    <a href="javascript:void(0);">{{user_m.name}}</a>
+                    <span> (@{{user_m.screen_name}}) </span>
+                  </span>
+                </span>
+                <span class="md-title">{{item.user.name}} <span class="md-subhead">@{{item.user.screen_name}}</span></span>
+                <span class="md-subhead">{{second.Date(item.created_at)}}</span>
+              </md-card-header-text>
+            </md-card-header>
+            <br>
+            <img ng-src="{{ item.entities.media[0].media_url }}" class="md-card-image" alt="Washed Out">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">{{item.text}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <!--<p>-->
+                <!--The titles of Washed Out's breakthrough song and the first single from Paracosm share the-->
+                <!--two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...-->
+              <!--</p>-->
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row" ng-click="">
+              <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Favorite">
+                <i>{{item.favorite_count}}</i>
+                <md-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 30" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+                  <path d="M0 0h24v24h-24z" fill="none"></path>
+                  <path d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path>
+                </svg></md-icon>
+              </button>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Settings">
+                <md-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+                  <path d="M0 0h18v18h-18z" fill="none"></path>
+                  <path d="M2 13.5h14v-1.5h-14v1.5zm0-4h14v-1.5h-14v1.5zm0-5.5v1.5h14v-1.5h-14z"></path>
+                </svg></md-icon>
+                <div class="md-ripple-container"></div></button>
+              <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Share" ng-click="second.replyToTweet(item)">
+                <md-icon aria-hidden="true"><svg version="1.1" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" fit="" preserveAspectRatio="xMidYMid meet" focusable="false"><g><g><path fill="#7d7d7d" d="M21,11l-7-7v4C7,9,4,14,3,19c2.5-3.5,6-5.1,11-5.1V18L21,11z"></path><rect fill="none" width="24" height="24"></rect></g></g></svg></md-icon>
+              </button>
+            </md-card-actions>
+          </md-card>
+          </div>
         <md-divider md-inset ng-if="!$last"></md-divider>
       </md-list-item>
     </md-list>
