@@ -6,9 +6,10 @@
 
   angular
     .module('pl')
-    .controller('SecondaryController', SecondaryController);
+    .controller('SecondaryController', SecondaryController)
+    .controller('dialogController', dialogController);
 
-  function SecondaryController($scope, twitterService, $localStorage, $log, baseActions, $window){
+  function SecondaryController($scope, twitterService, $localStorage, $log, baseActions, $window, $mdDialog, $mdMedia){
     var vm = this;
     vm.Date = $window.Date;
     $scope.tweet = {};
@@ -33,7 +34,25 @@
     });
 
     function replyToTweet(tweet) {
-      $log.log(tweet);
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+          controller: dialogController,
+          templateUrl: 'app/secondary/dialog.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose:true,
+          fullscreen: useFullScreen,
+          targetEvent: tweet
+        })
+        .then(function(answer) {
+          $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
     }
 
     $localStorage.second = {status:'open'};
@@ -69,5 +88,22 @@
       when: '3:08PM',
       notes: " I'll be in your neighborhood doing errands"
     }];
+  }
+
+  function dialogController($scope, $mdDialog, targetEvent){
+
+    $scope.item = targetEvent;
+
+    console.log(targetEvent);
+
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+    };
   }
 })();
