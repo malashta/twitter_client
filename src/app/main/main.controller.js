@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr, twitterService, $scope, $mediator, $localStorage, $window, $log, baseActions) {
+  function MainController($timeout, twitterService, $scope, $mediator, $localStorage, $window, $log, baseActions) {
     var vm = this;
     vm.tweets = []; //array of tweets
     $scope.tweet = {};
@@ -18,6 +18,7 @@
     vm.refreshTimeline = refreshTimeline;
     vm.showContentDetail = showContentDetail;
     vm.setLikePost = setLikePost;
+    vm.getMyTweets = getMyTweets;
 
     activate();
 
@@ -27,6 +28,14 @@
       }
     });
 
+    $mediator.$on('getMyTweets', function(){ vm.getMyTweets(); });
+
+    function getMyTweets () {
+      twitterService.getUserTimeline().then(function(data){
+        vm.tweets = data;
+      });
+    }
+
     function setLikePost (post) {
       twitterService.addToFavorite(post.id_str).then(function(data){
         $log.log(data);
@@ -35,7 +44,7 @@
 
     function showContentDetail (tweet) {
       if($localStorage.second.status == 'close') {
-        $window.open('/#/second');
+     //   $window.open('/#/second');
         $scope.tweet = tweet;
       } else {
         $scope.tweet = tweet;
@@ -49,7 +58,7 @@
       });
     }
 
-    function twitterConnect() {
+    function twitterConnect () {
       twitterService.connectTwitter().then(function() {
         if (twitterService.isReady()) {
           vm.status = true;
@@ -59,7 +68,7 @@
       });
     }
 
-    function activate() {
+    function activate () {
       twitterService.initialize();
       vm.dataBase = baseActions.initBase();
       vm.dataBase.$bindTo($scope, "tweet");

@@ -2,11 +2,8 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>{{item.user.name}}</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-        </md-button>
+        <h2 ng-if="!textmodel">Рассказать об этом вашим читателям?</h2>
+        <h2 ng-if="textmodel">Цитировать</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
@@ -15,15 +12,15 @@
         <img ng-src="{{ item.entities.media[0].media_url }}" class="md-card-image" alt="Washed Out">
       </div>
       <div class="md-dialog-content">
-        <textarea ng-style="{'width':'100%'}"></textarea>
+        <textarea ng-model="textmodel" ng-style="{'width':'100%'}"></textarea>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('not useful')">
+      <md-button ng-click="answer(false)">
         Отменить
       </md-button>
-      <md-button ng-click="answer('useful')">
+      <md-button ng-click="answer(textmodel)">
         Поделиться
       </md-button>
     </md-dialog-actions>

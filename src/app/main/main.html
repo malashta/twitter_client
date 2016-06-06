@@ -4,11 +4,11 @@
     <acme-navbar creation-date="main.creationDate"></acme-navbar>
   </header>
 
-  <md-content class="boxWithHeight">
+  <section ng-if="!main.status" class="boxWithHeight" layout="row" layout-align="center center">
+    <md-button class="md-raised animated infinite center" ng-class="main.classAnimation" ng-click="main.twitterConnect()">Войдите в свой Twitter</md-button>
+  </section>
 
-      <section ng-if="!main.status" class="boxWithHeight" layout-align="center center">
-        <md-button class="md-raised animated infinite center" ng-class="main.classAnimation" ng-click="main.twitterConnect()">Войдите в свой Twitter</md-button>
-      </section>
+  <md-content ng-if="main.status" class="boxWithHeight">
 
       <md-card ng-repeat="item in main.tweets">
         <md-card-header>
@@ -16,10 +16,17 @@
             <img class="md-user-avatar" ng-src="{{item.user.profile_image_url}}" src="assets/images/profile_pic.png">
           </md-card-avatar>
           <md-card-header-text>
+            <span ng-if="item.in_reply_to_screen_name" class="md-subhead">в ответ
+              <span ng-repeat="user_m in item.entities.user_mentions">
+                <a href="javascript:void(0);">{{user_m.name}}</a>
+                <span> (@{{user_m.screen_name}}) </span>
+              </span>
+            </span>
             <span class="md-title">{{ item.user.name }}</span>
             <span class="md-subhead">{{ item.user.description }}</span>
           </md-card-header-text>
         </md-card-header>
+        <br>
         <img ng-src="{{ item.entities.media[0].media_url }}" class="md-card-image">
         <md-card-content>
           <p>

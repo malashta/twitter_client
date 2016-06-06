@@ -27,6 +27,7 @@
       vm.status = twitterService.isReady() ? true : false;
       vm.profile = Object.create(null);
       vm.getUserProfile = getUserProfile;
+      vm.getMyTweets = getMyTweets;
 
       $mediator.$on('isConnect',function(){
         vm.status = twitterService.isReady() ? true : false;
@@ -36,6 +37,10 @@
       $scope.$watch('status',function(){
         getUserProfile();
       });
+
+      function getMyTweets(){
+        $mediator.$emit('getMyTweets',vm.profile);
+      }
 
       function getUserProfile(){
         if(vm.status) {

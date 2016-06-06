@@ -1,65 +1,3 @@
-<!--<md-toolbar class="md-tall md-warn _md">-->
-  <!--<div class="md-toolbar-tools">-->
-    <!--<button class="md-button md-ink-ripple" type="button" aria-label="Go Back"><span class="ng-scope">-->
-          <!--Go Back-->
-        <!--</span></button>-->
-    <!--<span><img ng-src="{{tweet.user.profile_image_url}}" class="md-avatar" alt="{{ tweet.user.name }}" src="assets/images/profile_pic.png"></span>-->
-    <!--<h2>-->
-      <!--<span>{{tweet.user.name }}</span>-->
-    <!--</h2>-->
-    <!--<span flex="" class="flex"></span>-->
-    <!--<button class="md-raised md-button md-ink-ripple" type="button" aria-label="Learn More"><span class="ng-scope">-->
-          <!--Learn More-->
-        <!--</span></button>-->
-    <!--<button class="md-fab md-mini md-button md-ink-ripple" type="button" aria-label="Favorite">-->
-      <!--<md-icon><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">-->
-        <!--<path d="M0 0h24v24h-24z" fill="none"></path>-->
-        <!--<path d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path>-->
-      <!--</svg></md-icon>-->
-    <!--</button>-->
-  <!--</div>-->
-<!--</md-toolbar>-->
-<!--<div>-->
-  <!--<div layout-gt-sm="row" layout="column" layout-margin layout-align="start center" layout-align-gt-sm="start start">-->
-
-
-
-    <!--<main flex-md="60" flex-order-gt-sm="2">-->
-      <!--<h1 class="md-title">-->
-
-      <!--</h1>-->
-
-      <!--<p>-->
-        <!--{{ tweet.text }}-->
-      <!--</p>-->
-
-    <!--</main>-->
-
-    <!--<aside flex-md="40" flex-order-gt-sm="1">-->
-      <!--<img ng-src="{{ tweet.entities.media[0].media_url }}"/>-->
-    <!--</aside>-->
-  <!--</div>-->
-<!--</div>-->
-<!--<div layout="row" flex="100">-->
-<!--<md-toolbar class="md-hue-2">-->
-  <!--<div class="md-toolbar-tools">-->
-    <!--<md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">-->
-      <!--<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>-->
-    <!--</md-button>-->
-    <!--<h2>-->
-      <!--<span>Toolbar with Disabled/Enabled Icon Buttons</span>-->
-    <!--</h2>-->
-    <!--<span flex></span>-->
-    <!--<md-button class="md-icon-button" aria-label="Favorite">-->
-      <!--<md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>-->
-    <!--</md-button>-->
-    <!--<md-button class="md-icon-button" aria-label="More">-->
-      <!--<md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>-->
-    <!--</md-button>-->
-  <!--</div>-->
-<!--</md-toolbar>-->
-<!--</div>-->
-
 <div hide show-gt-sm flex="30" layout="column"  class="boxWithHeight" layout-padding>
 
     <md-card layout-align="center center">
@@ -70,11 +8,6 @@
           <span class="md-subhead">{{ tweet.user.description }}</span>
         </md-card-title-text>
       </md-card-title>
-      <!--<div style="width: 100px;"><img ng-src="{{tweet.user.profile_image_url}}" class="md-avatar" height="120" width="120"></div>-->
-
-    <!--<div ng-cloak class="md-padding">-->
-      <!--<div style="background: url('assets/images/profile_pic.png'); width: 276px; height: 206px; border: 8px solid #787CAA; border-radius: 300px 0px 150px 300px; -webkit-border-radius: 300px 0px 150px 300px; -moz-border-radius: 300px 0px 150px 300px;"></div>-->
-    <!--</div>-->
     </md-card>
 
   <md-card>
@@ -102,19 +35,8 @@
 
 
 <div layout="column" flex-gt-sm="70" flex="100" class="boxWithHeight">
+
   <md-toolbar hide-gt-sm class="md-hue-2">
-    <!--<div class="md-toolbar-tools">-->
-      <!--<md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">-->
-      <!--<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>-->
-    <!--</md-button>-->
-    <!--<span flex></span>-->
-    <!--<md-button class="md-icon-button" aria-label="Favorite">-->
-      <!--<md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>-->
-    <!--</md-button>-->
-    <!--<md-button class="md-icon-button" aria-label="More">-->
-      <!--<md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>-->
-    <!--</md-button>-->
-    <!--</div>-->
     <md-list-item class="md-2-line md-no-proxy" role="listitem">
       <img ng-src="{{ tweet.user.profile_image_url }}" class="md-avatar" alt="" src="assets/images/profile_pic.png">
       <div class="md-list-item-text">
@@ -127,9 +49,6 @@
 
 
   <md-content flex layout-padding>
-
-    <!--<md-card>First item in column</md-card>-->
-    <!--<md-card>Second item in column</md-card>-->
 
     <md-list>
       <md-list-item class="md-3-line" ng-repeat="item in second.tweets">
@@ -158,13 +77,9 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-content>
-              <!--<p>-->
-                <!--The titles of Washed Out's breakthrough song and the first single from Paracosm share the-->
-                <!--two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...-->
-              <!--</p>-->
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row" ng-click="">
-              <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Favorite">
+            <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row">
+              <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Favorite" ng-click="second.setLikePost(item)">
                 <i>{{item.favorite_count}}</i>
                 <md-icon aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 30" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
                   <path d="M0 0h24v24h-24z" fill="none"></path>

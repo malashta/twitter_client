@@ -10,7 +10,7 @@
 
   <section ng-if="vm.status" >
     <md-list-item class="md-2-line md-no-proxy" role="listitem">
-      <img ng-src="{{vm.profile.profile_image_url}}" class="md-avatar" alt="{{ vm.profile.name }}" src="assets/images/profile_pic.png">
+      <img ng-click="vm.getMyTweets()" ng-src="{{vm.profile.profile_image_url}}" class="md-avatar" alt="{{ vm.profile.name }}" src="assets/images/profile_pic.png">
       <div class="md-list-item-text">
         <h3 class="ng-binding">{{ vm.profile.name }}</h3>
         <p>{{ vm.profile.description }}</p>
